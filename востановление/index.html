@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Научно обоснованные инструменты для поддержки при депрессии. Основано на методах телесной терапии Бессела ван дер Колка.">
+    <title>Восстановление — Научная поддержка при депрессии</title>
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Стили -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Фоновая анимация дыхания -->
+    <div class="breathing-bg"></div>
+
+    <!-- Навигация -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Восстановление</div>
+            <ul class="nav-links">
+                <li><a href="#mood">Состояние</a></li>
+                <li><a href="#garden">Прогресс</a></li>
+                <li><a href="#exercises">Упражнения</a></li>
+                <li><a href="#education">Знания</a></li>
+                <li><a href="#crisis">Помощь</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+    </nav>
+
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Восстановление — путь к себе</h1>
+            <p class="hero-subtitle">
+                Научно обоснованные инструменты для поддержки при депрессии и травме.
+                Основано на методах телесной терапии и нейробиологии.
+            </p>
+            <div class="hero-warning">
+                <strong>⚠️ Важное предупреждение</strong>
+                Этот сайт является вспомогательным инструментом и не заменяет профессиональную психотерапию или медицинскую помощь.
+                При тяжёлой депрессии, суицидальных мыслях или неспособности функционировать обратитесь к психиатру или психотерапевту немедленно.
+            </div>
+            <div class="hero-buttons">
+                <a href="#mood" class="cta-button primary">Начать с оценки состояния</a>
+                <a href="#exercises" class="cta-button secondary">Перейти к упражнениям</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Оценка настроения -->
+    <section id="mood">
+        <div class="mood-checker">
+            <h3 class="mood-title">Как вы себя чувствуете прямо сейчас?</h3>
+            <p class="mood-subtitle">Выберите смайлик, который отражает ваше текущее состояние</p>
+
+            <div class="mood-scale">
+                <div class="mood-option" data-value="1" onclick="selectMood(1)">
+                    <span class="mood-emoji">😢</span>
+                    <span class="mood-label">Очень плохо</span>
+                </div>
+                <div class="mood-option" data-value="2" onclick="selectMood(2)">
+                    <span class="mood-emoji">😕</span>
+                    <span class="mood-label">Плохо</span>
+                </div>
+                <div class="mood-option" data-value="3" onclick="selectMood(3)">
+                    <span class="mood-emoji">😐</span>
+                    <span class="mood-label">Нормально</span>
+                </div>
+                <div class="mood-option" data-value="4" onclick="selectMood(4)">
+                    <span class="mood-emoji">🙂</span>
+                    <span class="mood-label">Хорошо</span>
+                </div>
+                <div class="mood-option" data-value="5" onclick="selectMood(5)">
+                    <span class="mood-emoji">😊</span>
+                    <span class="mood-label">Отлично</span>
+                </div>
+            </div>
+
+            <div class="mood-recommendation" id="moodRecommendation">
+                <div class="recommendation-icon" id="recIcon">💡</div>
+                <h4 id="recTitle">Рекомендация</h4>
+                <p id="recText"></p>
+                <div class="recommendation-actions" id="recActions"></div>
+            </div>
+
+            <div class="mood-history-link">
+                <a href="#" onclick="showMoodHistory(); return false;">📊 Посмотреть историю настроения</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Сад восстановления -->
+    <!-- Сад восстановления -->
+    <section id="garden">
+        <div class="garden-section">
+            <h2 class="section-title">Ваш сад восстановления</h2>
+            <p class="section-subtitle">
+                Каждая практика помогает вашему дереву расти. Регулярность важнее интенсивности.
+            </p>
+
+            <div class="garden-display-container">
+                <!-- CSS-дерево вместо эмодзи -->
+                <div class="garden-tree level-1" id="gardenTree" onclick="waterPlant()" title="Нажмите, чтобы полить дерево">
+                    <div class="tree-crown"></div>
+                    <div class="tree-branch left"></div>
+                    <div class="tree-branch right"></div>
+                    <div class="tree-trunk"></div>
+                    <div class="tree-ground"></div>
+                </div>
+
+                <div class="garden-plant-info">
+                    <div class="plant-name" id="plantName">Семя</div>
+                    <div class="plant-stage" id="plantStage">0 практик</div>
+                </div>
+
+                <p class="garden-hint">Нажмите на дерево после практики, чтобы полить его</p>
+            </div>
+
+            <div class="garden-stats">
+                <div class="garden-stat">
+                    <div class="garden-stat-number" id="totalPractices">0</div>
+                    <div class="garden-stat-label">практик всего</div>
+                </div>
+                <div class="garden-stat">
+                    <div class="garden-stat-number" id="currentStreak">0</div>
+                    <div class="garden-stat-label">дней подряд</div>
+                </div>
+                <div class="garden-stat">
+                    <div class="garden-stat-number" id="weeklyGoal">0/7</div>
+                    <div class="garden-stat-label">цель недели</div>
+                </div>
+            </div>
+
+            <div class="garden-stages">
+                <div class="garden-stage active" id="stage1">
+                    <span class="stage-icon">🌱</span>
+                    <span class="stage-name">Семя</span>
+                    <span class="stage-range">0-2</span>
+                </div>
+                <div class="garden-stage" id="stage2">
+                    <span class="stage-icon">🌿</span>
+                    <span class="stage-name">Росток</span>
+                    <span class="stage-range">3-6</span>
+                </div>
+                <div class="garden-stage" id="stage3">
+                    <span class="stage-icon">🌳</span>
+                    <span class="stage-name">Дерево</span>
+                    <span class="stage-range">7-13</span>
+                </div>
+                <div class="garden-stage" id="stage4">
+                    <span class="stage-icon">🌸</span>
+                    <span class="stage-name">Цветение</span>
+                    <span class="stage-range">14+</span>
+                </div>
+            </div>
+
+            <div class="garden-actions">
+                <button class="garden-btn primary" onclick="waterPlant()">
+                    💧 Полить дерево (отметить практику)
+                </button>
+                <button class="garden-btn secondary" onclick="showGardenInfo()">
+                    ℹ️ О саде
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модули восстановления -->
+    <section id="modules">
+        <h2 class="section-title">Методы восстановления</h2>
+        <p class="section-subtitle">
+            Комбинация «сверху-вниз» (когнитивной) и «снизу-вверх» (телесной) работы
+        </p>
+
+        <div class="modules-grid">
+            <div class="module-card" onclick="openModal('breathing')">
+                <div class="module-icon">🫁</div>
+                <h3>Дыхание и присутствие</h3>
+                <p>Восстановление связи с телом через осознанное дыхание. Улучшает вариабельность сердечного ритма (HRV).</p>
+                <div class="module-meta">
+                    <span class="module-tag">5-10 минут</span>
+                    <span class="module-difficulty">Легко</span>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="openModal('bodyscan')">
+                <div class="module-icon">🧍</div>
+                <h3>Соматическое исследование</h3>
+                <p>Телесное сканирование для выявления зажимов и диссоциации. Помогает вернуться в «окно толерантности».</p>
+                <div class="module-meta">
+                    <span class="module-tag">10-15 минут</span>
+                    <span class="module-difficulty">Средне</span>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="openModal('grounding')">
+                <div class="module-icon">🌍</div>
+                <h3>Заземление 5-4-3-2-1</h3>
+                <p>Техника выхода из диссоциации и тревожной активации через органы чувств. Научно подтверждённый метод.</p>
+                <div class="module-meta">
+                    <span class="module-tag">Кризисная помощь</span>
+                    <span class="module-difficulty">Легко</span>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="openModal('movement')">
+                <div class="module-icon">🌊</div>
+                <h3>Ритм и движение</h3>
+                <p>Ван дер Кolk подчёркивает силу ритмичных движений для восстановления агентности. Простые упражнения.</p>
+                <div class="module-meta">
+                    <span class="module-tag">Самосострадание</span>
+                    <span class="module-difficulty">Легко</span>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="openModal('cbt')">
+                <div class="module-icon">🧠</div>
+                <h3>Когнитивные инструменты</h3>
+                <p>Дневник мыслей, работа с когнитивными искажениями. «Сверху-вниз» подход для понимания паттернов.</p>
+                <div class="module-meta">
+                    <span class="module-tag">CBT/DBT</span>
+                    <span class="module-difficulty">Средне</span>
+                </div>
+            </div>
+
+            <div class="module-card" onclick="openModal('selfcompassion')">
+                <div class="module-icon">💚</div>
+                <h3>Самосострадание</h3>
+                <p>Практики Кристин Нефф и работа со стыдом. Противоядие критического внутреннего голоса.</p>
+                <div class="module-meta">
+                    <span class="module-tag">Эмоциональная регуляция</span>
+                    <span class="module-difficulty">Средне</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Практики -->
+    <section id="exercises">
+        <h2 class="section-title">Практика сейчас</h2>
+        <p class="section-subtitle">Выберите упражнение в зависимости от вашего текущего состояния</p>
+
+        <!-- Дыхание -->
+        <div class="exercise-container" id="breathing-exercise">
+            <div class="exercise-header">
+                <h3>🫁 Осознанное дыхание</h3>
+                <span class="exercise-duration">5-10 минут</span>
+            </div>
+
+            <div class="breathing-visual">
+                <div class="breath-circle" id="breathCircle" onclick="toggleBreathing()">
+                    <div class="breath-text">Начать</div>
+                    <div class="breath-hint">Нажмите, чтобы начать</div>
+                </div>
+                <div class="breath-counter" id="breathCounter">Цикл: 0/5</div>
+            </div>
+
+            <div class="breath-patterns">
+                <button class="pattern-btn active" onclick="setBreathPattern('calm')" data-pattern="calm">
+                    <strong>Спокойствие</strong>
+                    <span>Вдох 4с → Пауза → Выдох 6с</span>
+                </button>
+                <button class="pattern-btn" onclick="setBreathPattern('energy')" data-pattern="energy">
+                    <strong>Энергия</strong>
+                    <span>Вдох 4с → Задержка 4с → Выдох 4с</span>
+                </button>
+                <button class="pattern-btn" onclick="setBreathPattern('sleep')" data-pattern="sleep">
+                    <strong>Сон</strong>
+                    <span>Вдох 4с → Задержка 7с → Выдох 8с</span>
+                </button>
+            </div>
+
+            <div class="exercise-info">
+                <p>Эта техника активирует парасимпатическую нервную систему, снижая тревожность и стабилизируя сердечный ритм.</p>
+            </div>
+        </div>
+
+        <!-- Заземление -->
+        <div class="exercise-container" id="grounding-exercise">
+            <div class="exercise-header">
+                <h3>🌍 Техника заземления 5-4-3-2-1</h3>
+                <span class="exercise-duration">3-5 минут</span>
+            </div>
+
+            <div class="grounding-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="groundingProgress"></div>
+                </div>
+                <div class="progress-text">Шаг <span id="currentStep">1</span> из 5</div>
+            </div>
+
+            <div class="grounding-steps" id="groundingSteps">
+                <div class="grounding-step active" data-step="1">
+                    <div class="step-visual">👁️</div>
+                    <h4>5 вещей, которые вы видите</h4>
+                    <p>Оглядитесь вокруг и назовите 5 предметов. Например: «Я вижу лампу, дерево за окном, синюю книгу...»</p>
+                    <input type="text" class="grounding-input" placeholder="Введите через запятую..." id="step1input">
+                    <button class="step-btn" onclick="nextGroundingStep(1)">Далее →</button>
+                </div>
+
+                <div class="grounding-step" data-step="2">
+                    <div class="step-visual">✋</div>
+                    <h4>4 вещи, которые вы чувствуете</h4>
+                    <p>Обратите внимание на телесные ощущения: тепло, холод, текстура ткани, вес тела.</p>
+                    <input type="text" class="grounding-input" placeholder="Например: тепло кружки, мягкий свитер..." id="step2input">
+                    <button class="step-btn" onclick="nextGroundingStep(2)">Далее →</button>
+                </div>
+
+                <div class="grounding-step" data-step="3">
+                    <div class="step-visual">👂</div>
+                    <h4>3 звука, которые вы слышите</h4>
+                    <p>Прислушайтесь. Это могут быть далёкие или близкие звуки.</p>
+                    <input type="text" class="grounding-input" placeholder="Например: шум машин, тиканье часов..." id="step3input">
+                    <button class="step-btn" onclick="nextGroundingStep(3)">Далее →</button>
+                </div>
+
+                <div class="grounding-step" data-step="4">
+                    <div class="step-visual">👃</div>
+                    <h4>2 запаха</h4>
+                    <p>Что вы чувствуете носом? Если не чувствуете ничего — вспомните любимые запахи.</p>
+                    <input type="text" class="grounding-input" placeholder="Например: кофе, свежий воздух..." id="step4input">
+                    <button class="step-btn" onclick="nextGroundingStep(4)">Далее →</button>
+                </div>
+
+                <div class="grounding-step" data-step="5">
+                    <div class="step-visual">👅</div>
+                    <h4>1 вкус</h4>
+                    <p>Что вы чувствуете во рту? Или возьмите глоток воды/чая и сфокусируйтесь на вкусе.</p>
+                    <input type="text" class="grounding-input" placeholder="Например: мятная жвачка, вода..." id="step5input">
+                    <button class="step-btn finish" onclick="finishGrounding()">Завершить ✓</button>
+                </div>
+
+                <div class="grounding-step" data-step="6">
+                    <div class="step-visual success">🌟</div>
+                    <h4>Вы вернулись в настоящий момент</h4>
+                    <p>Заметьте, как изменилось ваше дыхание и телесные ощущения. Вы справились!</p>
+                    <div class="grounding-summary" id="groundingSummary"></div>
+                    <button class="step-btn" onclick="resetGrounding()">Начать заново</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ежедневный прогресс -->
+    <section id="progress">
+        <div class="progress-section">
+            <div class="progress-header">
+                <div>
+                    <h3 class="progress-title">Ежедневные практики</h3>
+                    <p class="progress-subtitle">Регулярность важнее интенсивности (ван дер Кolk)</p>
+                </div>
+                <div class="progress-percentage" id="progressPercent">0%</div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="dailyProgressBar"></div>
+            </div>
+
+            <div class="checklist" id="dailyChecklist">
+                <label class="check-item">
+                    <input type="checkbox" class="check-input" data-task="breathing" onchange="toggleTask(this)">
+                    <span class="check-box"></span>
+                    <span class="check-text">5 минут осознанного дыхания</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" class="check-input" data-task="bodyscan" onchange="toggleTask(this)">
+                    <span class="check-box"></span>
+                    <span class="check-text">Телесное сканирование</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" class="check-input" data-task="journal" onchange="toggleTask(this)">
+                    <span class="check-box"></span>
+                    <span class="check-text">Запись в дневник (3 хороших вещи)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" class="check-input" data-task="movement" onchange="toggleTask(this)">
+                    <span class="check-box"></span>
+                    <span class="check-text">Физическое движение (прогулка/йога)</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" class="check-input" data-task="compassion" onchange="toggleTask(this)">
+                    <span class="check-box"></span>
+                    <span class="check-text">Практика самосострадания</span>
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" class="check-input" data-task="social" onchange="toggleTask(this)">
+                    <span class="check-box"></span>
+                    <span class="check-text">Социальный контакт (даже короткий)</span>
+                </label>
+            </div>
+
+            <div class="progress-motivation" id="progressMotivation">
+                Начните с малого — даже одна практика имеет значение.
+            </div>
+        </div>
+    </section>
+
+    <!-- Образование -->
+    <section id="education">
+        <h2 class="section-title">Понимание депрессии</h2>
+        <p class="section-subtitle">Научные объяснения помогают снять стыгму и вернуть агентность</p>
+
+        <div class="education-grid">
+            <div class="education-card" onclick="toggleEducation(this)">
+                <div class="education-header">
+                    <h4>Почему «тело помнит всё»?</h4>
+                    <span class="education-toggle">+</span>
+                </div>
+                <p class="education-preview">Нейробиология травмы и депрессии</p>
+                <div class="education-content">
+                    <p>По данным Бессела ван дер Колка, травматический опыт сохраняется не только в виде воспоминаний, но и в телесных ощущениях, активации мышц и вегетативной нервной системе.</p>
+                    <p>При депрессии часто наблюдается диссоциация — отключение от телесных ощущений как защитный механизм. Восстановление требует безопасного возвращения в тело через «окно толерантности».</p>
+                </div>
+            </div>
+
+            <div class="education-card" onclick="toggleEducation(this)">
+                <div class="education-header">
+                    <h4>«Окно толерантности»</h4>
+                    <span class="education-toggle">+</span>
+                </div>
+                <p class="education-preview">Как вернуть контроль над нервной системой</p>
+                <div class="education-content">
+                    <p>Данни Сигел описывает «окно толерантности» как зону оптимальной активации. При депрессии мы часто выпадаем в гипоактивацию (заторможенность) или перегружаемся тревогой.</p>
+                    <p>Телесные практики расширяют это окно, позволяя переносить большее разнообразие эмоций без отключения.</p>
+                </div>
+            </div>
+
+            <div class="education-card" onclick="toggleEducation(this)">
+                <div class="education-header">
+                    <h4>Агентность и самосострадание</h4>
+                    <span class="education-toggle">+</span>
+                </div>
+                <p class="education-preview">Восстановление чувства контроля</p>
+                <div class="education-content">
+                    <p>Травма и депрессия часто лишают чувства агентности — способности влиять на свою жизнь. Ван дер Кolk подчёркивает важность действий, которые возвращают это чувство.</p>
+                    <p>Самосострадание Кристин Нефф — это не самоиндульгенция, а признание страдания без присуждения.</p>
+                </div>
+            </div>
+
+            <div class="education-card" onclick="toggleEducation(this)">
+                <div class="education-header">
+                    <h4>Нейропластичность</h4>
+                    <span class="education-toggle">+</span>
+                </div>
+                <p class="education-preview">Мозг может измениться</p>
+                <div class="education-content">
+                    <p>Исследования показывают, что депрессия связана с уменьшением объёма гиппокампа и префронтальной коры. Однако благодаря нейропластичности эти изменения обратимы.</p>
+                    <p>Регулярная практика (даже 5-10 минут в день) создаёт новые нейронные связи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кризисная помощь -->
+    <section id="crisis" class="crisis-section">
+        <h3 class="crisis-title">Если сейчас очень тяжело</h3>
+        <p class="crisis-subtitle">
+            При кризисе, суицидальных мыслях или неспособности справиться — обратитесь за профессиональной помощью.
+            Это не признак слабости, а забота о себе.
+        </p>
+
+        <div class="crisis-contacts">
+            <a href="tel:+74959884434" class="crisis-card">
+                <span class="crisis-number">+7 495 988-44-34</span>
+                <span class="crisis-name">Телефон доверия (Москва)</span>
+                <span class="crisis-hours">Круглосуточно</span>
+            </a>
+            <a href="tel:+78002000122" class="crisis-card">
+                <span class="crisis-number">+7 800 2000-122</span>
+                <span class="crisis-name">Детский телефон доверия</span>
+                <span class="crisis-hours">Круглосуточно</span>
+            </a>
+            <a href="tel:+74992165050" class="crisis-card">
+                <span class="crisis-number">+7 499 216-50-50</span>
+                <span class="crisis-name">Служба экстренной помощи МЧС</span>
+                <span class="crisis-hours">Круглосуточно</span>
+            </a>
+            <a href="tel:103" class="crisis-card emergency">
+                <span class="crisis-number">103</span>
+                <span class="crisis-name">Скорая психиатрическая помощь</span>
+                <span class="crisis-hours">Экстренно</span>
+            </a>
+        </div>
+
+        <div class="safety-plan">
+            <h4>План безопасности (Safety Planning)</h4>
+            <p class="safety-intro">Научно валидированный метод кризисного планирования:</p>
+
+            <div class="safety-steps">
+                <div class="safety-step">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <strong>Предупреждающие знаки</strong>
+                        <p>Что сигнализирует о приближении кризиса?</p>
+                    </div>
+                </div>
+                <div class="safety-step">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <strong>Внутренние стратегии</strong>
+                        <p>Что помогает без внешней помощи?</p>
+                    </div>
+                </div>
+                <div class="safety-step">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <strong>Отвлечение</strong>
+                        <p>Куда можно пойти/чем заняться?</p>
+                    </div>
+                </div>
+                <div class="safety-step">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <strong>Люди</strong>
+                        <p>К кому обратиться (список контактов)?</p>
+                    </div>
+                </div>
+                <div class="safety-step">
+                    <div class="step-num">5</div>
+                    <div class="step-content">
+                        <strong>Профессионалы</strong>
+                        <p>Терапевт, психиатр, горячие линии</p>
+                    </div>
+                </div>
+                <div class="safety-step">
+                    <div class="step-num">6</div>
+                    <div class="step-content">
+                        <strong>Безопасность</strong>
+                        <p>Как ограничить доступ к опасным предметам?</p>
+                    </div>
+                </div>
+                <div class="safety-step">
+                    <div class="step-num">7</div>
+                    <div class="step-content">
+                        <strong>Смысл</strong>
+                        <p>Что стоит жить? (люди, ценности, мечты)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">Восстановление</div>
+            <p class="footer-text">
+                Научно обоснованные инструменты для поддержки психического здоровья
+            </p>
+            <div class="footer-disclaimer">
+                <p>Информация на сайте основана на научных исследованиях, включая работы Бессела ван дер Колка «Тело помнит всё», исследования соматической терапии (Peter Levine), когнитивно-поведенческой терапии и теории самосострадания (Kristin Neff).</p>
+                <p><strong>Важно:</strong> Этот сайт не является медицинской услугой. При серьёзных психических расстройствах обращайтесь к лицензированным специалистам.</p>
+            </div>
+            <div class="footer-copy">
+                © 2024 Восстановление. Сделано с заботой.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Чатбот -->
+    <div class="chatbot-toggle" id="chatbotToggle" onclick="toggleChatbot()">
+        <span class="chatbot-icon">💬</span>
+        <span class="chatbot-notification" id="chatbotNotif" style="display: none;">1</span>
+    </div>
+
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div class="chatbot-info">
+                <div class="chatbot-avatar">🌿</div>
+                <div>
+                    <div class="chatbot-name">Помощник CBT</div>
+                    <div class="chatbot-status">Онлайн</div>
+                </div>
+            </div>
+            <button class="chatbot-close" onclick="toggleChatbot()">×</button>
+        </div>
+
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot welcome">
+                <div class="message-content">
+                    Здравствуйте! Я помогу вам работать с мыслями и эмоциями.
+                    Напишите, что вас беспокоит, или выберите готовый сценарий:
+                </div>
+                <div class="quick-actions">
+                    <button onclick="startScenario('thought')" class="quick-btn">Проверить мысль</button>
+                    <button onclick="startScenario('mood')" class="quick-btn">Улучшить настроение</button>
+                    <button onclick="startScenario('anxiety')" class="quick-btn">Справиться с тревогой</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chatbot-input-area">
+            <input type="text"
+                   class="chatbot-input"
+                   id="chatbotInput"
+                   placeholder="Напишите сообщение..."
+                   onkeypress="handleChatEnter(event)">
+            <button class="chatbot-send" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
+    <!-- Уведомления -->
+    <div class="notification-container" id="notificationContainer"></div>
+
+    <!-- Модальное окно -->
+    <div id="modal" class="modal" onclick="closeModalOnBackground(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- История настроения (скрыто по умолчанию) -->
+    <div id="moodHistoryModal" class="modal">
+        <div class="modal-content wide">
+            <button class="close-modal" onclick="closeMoodHistory()">×</button>
+            <h3>История настроения</h3>
+            <div class="mood-chart" id="moodChart"></div>
+            <div class="mood-stats" id="moodStats"></div>
+        </div>
+    </div>
+
+    <!-- Скрипты -->
+    <script src="js/app.js"></script>
+    <script src="js/mood.js"></script>
+    <script src="js/garden.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/exercises.js"></script>
+</body>
+</html>
