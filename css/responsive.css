@@ -1,0 +1,108 @@
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .modules-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mood-scale {
+        gap: 0.5rem;
+    }
+
+    .mood-option span {
+        font-size: 2rem;
+    }
+
+    .garden-display {
+        font-size: 6rem;
+    }
+
+    .garden-stats {
+        gap: 1.5rem;
+        font-size: 1rem;
+    }
+
+    .chatbot-container {
+        width: calc(100% - 40px);
+        right: 20px;
+        left: 20px;
+    }
+
+    .chatbot-toggle {
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .notification {
+        right: 20px;
+        left: 20px;
+        max-width: none;
+    }
+
+    section {
+        padding: 3rem 1rem;
+    }
+
+    .exercise-container {
+        padding: 2rem 1rem;
+    }
+
+    .modal-content {
+        padding: 2rem 1rem;
+        margin: 1rem;
+    }
+}
+
+/* Планшеты */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .modules-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Большие экраны */
+@media (min-width: 1400px) {
+    .nav-container,
+    section {
+        max-width: 1400px;
+    }
+}
+
+/* ИСПРАВЛЕНИЕ: Мобильное меню */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(250, 248, 245, 0.98);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 20px var(--shadow);
+    }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0.5rem 0;
+        }
+}
